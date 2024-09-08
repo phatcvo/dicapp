@@ -1,11 +1,13 @@
 let data = [];
 
+// Tải dữ liệu từ dic_data.json
 fetch("dic_data.json")
   .then((response) => response.json())
   .then((jsonData) => {
     data = jsonData;
+    console.log("Dữ liệu đã được tải:", data); // Kiểm tra dữ liệu có được tải không
   })
-  .catch((error) => console.error("Error loading JSON data:", error));
+  .catch((error) => console.error("Lỗi khi tải dữ liệu JSON:", error));
 
 function searchWord() {
   const input = document.getElementById("search-input").value.trim();
@@ -16,15 +18,17 @@ function searchWord() {
   errorDiv.textContent = "";
   resultDiv.innerHTML = "";
 
-  // Kiểm tra xem người dùng có nhập dữ liệu không
+  // Kiểm tra xem người dùng có nhập từ hay không
   if (!input) {
     errorDiv.textContent = "Vui lòng nhập từ cần tra.";
     return;
   }
 
-  const result = data.find((item) => item["Từ vựng"] === input);
+  // Tìm kiếm từ trong dữ liệu JSON
+  const result = data.find((item) => item["Từ vựng"].trim() === input);
 
   if (result) {
+    // Hiển thị thông tin khi tìm thấy từ
     resultDiv.innerHTML = `
       <strong>Từ vựng:</strong> ${result["Từ vựng"]}<br>
       <strong>Nghĩa:</strong> ${result["Nghĩa"]}<br>
@@ -35,6 +39,7 @@ function searchWord() {
       <strong>Âm Hán 2:</strong> ${result["Âm Hán 2"] || "Không có"}
     `;
   } else {
+    // Nếu không tìm thấy từ
     errorDiv.textContent = "Không tìm thấy từ này.";
   }
 }
