@@ -10,7 +10,7 @@ fetch("dic_data.json")
   .catch((error) => console.error("Lỗi khi tải dữ liệu JSON:", error));
 
 function searchWord() {
-  const input = document.getElementById("search-input").value.trim();
+  const input = document.getElementById("search-input").value.trim(); // Xóa khoảng trắng đầu cuối
   const resultDiv = document.getElementById("result");
   const errorDiv = document.getElementById("error-message");
 
@@ -24,19 +24,19 @@ function searchWord() {
     return;
   }
 
-  // Tìm kiếm từ trong dữ liệu JSON
+  // Tìm kiếm từ trong dữ liệu JSON, loại bỏ khoảng trắng cả từ nhập và từ JSON
   const result = data.find((item) => item["Từ vựng"].trim() === input);
 
   if (result) {
     // Hiển thị thông tin khi tìm thấy từ
     resultDiv.innerHTML = `
-      <strong>Từ vựng:</strong> ${result["Từ vựng"]}<br>
+      <strong>Từ vựng:</strong> ${result["Từ vựng"].trim()}<br>
       <strong>Nghĩa:</strong> ${result["Nghĩa"]}<br>
       <strong>Âm Hán:</strong> ${result["Âm Hán"] || "Không có"}<br><br>
       
-      <strong>Từ vựng 2:</strong> ${result["Từ vựng 2"] || "Không có"}<br>
-      <strong>Nghĩa 2:</strong> ${result["Nghĩa 2"] || "Không có"}<br>
-      <strong>Âm Hán 2:</strong> ${result["Âm Hán 2"] || "Không có"}
+      <strong>Từ trái nghĩa:</strong> ${result["Từ vựng 2"] || "Không có"}<br>
+      <strong>Nghĩa:</strong> ${result["Nghĩa 2"] || "Không có"}<br>
+      <strong>Âm Hán:</strong> ${result["Âm Hán 2"] || "Không có"}
     `;
   } else {
     // Nếu không tìm thấy từ
