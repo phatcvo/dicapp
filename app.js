@@ -10,7 +10,10 @@ fetch("dic_data.json")
   .catch((error) => console.error("Lỗi khi tải dữ liệu JSON:", error));
 
 function searchWord() {
-  const input = document.getElementById("search-input").value.trim(); // Xóa khoảng trắng đầu cuối
+  const input = document
+    .getElementById("search-input")
+    .value.trim()
+    .toLowerCase(); // Loại bỏ khoảng trắng và chuyển về chữ thường
   const resultDiv = document.getElementById("result");
   const errorDiv = document.getElementById("error-message");
 
@@ -24,8 +27,10 @@ function searchWord() {
     return;
   }
 
-  // Tìm kiếm từ trong dữ liệu JSON, loại bỏ khoảng trắng cả từ nhập và từ JSON
-  const result = data.find((item) => item["Từ vựng"].trim() === input);
+  // Tìm kiếm từ trong dữ liệu JSON, loại bỏ khoảng trắng và không phân biệt hoa thường
+  const result = data.find(
+    (item) => item["Từ vựng"].trim().toLowerCase() === input
+  );
 
   if (result) {
     // Hiển thị thông tin khi tìm thấy từ
